@@ -20,7 +20,7 @@ app.use(express.static(__dirname+"/assets"));
 //login route
 app.get("/", (req, res) => {
    
-      res.sendFile(__dirname+"/part10.html");
+      res.sendFile(__dirname+"/index.html");
   }
   );
 //the admin space route
