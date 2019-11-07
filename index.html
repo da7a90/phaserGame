@@ -14,23 +14,10 @@
 <body>
 
 <script type="text/javascript">
-import rexVirtualJoyStick from './plugins/virtualjoystick.js';
-import VirtualJoyStickPlugin from './plugins/virtualjoystick-plugin.js';
-
-
 var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    plugins: {
-        global: [{
-            key: 'rexVirtualJoyStick',
-            plugin: VirtualJoyStickPlugin,
-            start: true
-        },
-       
-        ]
-    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -64,28 +51,12 @@ function preload ()
     this.load.image('star', 'assets/star.png');
     this.load.image('gz', 'assets/gz.png');
     this.load.image('bomb', 'assets/bomb.png');
-    this.load.image('gamepad', 'assets/gamepad_spritesheet.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create ()
 {
-	var joystick = this.plugins.get('rexVirtualJoyStick').add(this, {
-    x: x,
-    y: y,
-    radius: radius,
-    //base: player,
-    //thumb: thumbGameObject,
-    // dir: '8dir',
-    // forceMin: 16,
-    // fixed: true,
-    // enable: true
-});
-   var leftKeyDown = joystick.left;
-var rightKeyDown = joystick.right;
-var upKeyDown = joystick.up;
-var downKeyDown = joystick.down;
-var noKeyDown = joystick.noKey;
+
     //  A simple background for our game
     this.add.image(400, 300, 'plain');
 
@@ -168,24 +139,7 @@ var noKeyDown = joystick.noKey;
 
 function update ()
 {
-    if(leftKeyDown){
-       player.setVelocityX(-160);
 
-        player.anims.play('left', true);
-    }
-    else if(rightKeyDown){
-          player.setVelocityX(160);
-
-        player.anims.play('right', true);
-    }
-    else{
-      player.setVelocityX(0);
-
-        player.anims.play('turn');
-    }
-    if(upKeyDown && player.body.touching.down){
-     player.setVelocityY(-330);
-    }
     if (gameOver)
     {
         return;
