@@ -51,11 +51,15 @@ function preload ()
     this.load.image('star', 'assets/star.png');
     this.load.image('gz', 'assets/gz.png');
     this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('gamepad', 'assets/gamepad_spritesheet.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create ()
 {
+    var gamepad = game.plugins.add(Phaser.Plugin.VirtualGamepad);
+    var joystick = gamepad.addJoystick(100, 420, 1.2, 'gamepad');
+    var button = this.gamepad.addButton(100, 420, 1.0, 'gamepad');
     //  A simple background for our game
     this.add.image(400, 300, 'plain');
 
@@ -138,6 +142,24 @@ function create ()
 
 function update ()
 {
+    if(this.joystick.propreties.left){
+       player.setVelocityX(-160);
+
+        player.anims.play('left', true);
+    }
+    else if(this.joystick.propreties.right){
+          player.setVelocityX(160);
+
+        player.anims.play('right', true);
+    }
+    else{
+      player.setVelocityX(0);
+
+        player.anims.play('turn');
+    }
+    if(this.button.isdown && player.body.touching.down){
+     player.setVelocityY(-330);
+    }
     if (gameOver)
     {
         return;
@@ -229,6 +251,6 @@ function hitGz (player, gz)
 }
 
 </script>
-
+    <script src="phaser-plugin-virtual-gamepad.js"></script>
 </body>
 </html>
