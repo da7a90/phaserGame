@@ -3,7 +3,7 @@
 <head> 
     <meta charset="UTF-8" />
     <title>Je t'adore</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.19.0/phaser.js"></script>
 
     <style type="text/css">
         body {
@@ -14,10 +14,17 @@
 <body>
 
 <script type="text/javascript">
+
+
+
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 800,
+        height: 600
+    },
     input:{activePointers : 3},
     physics: {
         default: 'arcade',
@@ -63,7 +70,7 @@ function create ()
 {
 
     //  A simple background for our game
-    this.add.image(400, 300, 'plain');
+    this.add.image(400, 300, 'plain').setScale(0.6);
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
