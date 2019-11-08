@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Je t'adore</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
-     <script src="phaser-plugin-virtual-gamepad.js"></script>
+
     <style type="text/css">
         body {
             margin: 0;
@@ -18,6 +18,7 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    input:{activePointers : 2},
     physics: {
         default: 'arcade',
         arcade: {
@@ -41,7 +42,11 @@ var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
-
+var pointer;
+var button_left;
+var button_right;
+var flag_left=false;
+var flag_right=false;
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -75,6 +80,7 @@ function create ()
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'dude');
 
+
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
@@ -102,7 +108,7 @@ function create ()
 
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
-
+    pointer = this.input.activePointer;
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'star',
@@ -139,19 +145,21 @@ function create ()
 
 function update ()
 {
-
+  
+       
+    
     if (gameOver)
     {
         return;
     }
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown||(pointer.isDown&&pointer.x<370))
     {
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown||(pointer.isDown&&pointer.x>370))
     {
         player.setVelocityX(160);
 
@@ -164,7 +172,7 @@ function update ()
         player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down)
+    if (cursors.up.isDown && player.body.touching.down||(this.input.pointer1.isDown&&this.input.pointer2.isDown))
     {
         player.setVelocityY(-330);
     }
