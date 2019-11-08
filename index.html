@@ -153,13 +153,13 @@ function update ()
         return;
     }
 
-    if (cursors.left.isDown||(pointer.isDown&&pointer.x<370))
+    if (cursors.left.isDown||(this.input.activePointer.isDown&&this.input.activePointer.x<370))
     {
         player.setVelocityX(-160);
 
         player.anims.play('left', true);
     }
-    else if (cursors.right.isDown||(pointer.isDown&&pointer.x>370))
+    else if (cursors.right.isDown||(this.input.activePointer.isDown&&this.input.activePointer.x>370))
     {
         player.setVelocityX(160);
 
@@ -172,7 +172,7 @@ function update ()
         player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down||(this.input.pointer1.isDown&&this.input.pointer2.isDown))
+    if (cursors.up.isDown && player.body.touching.down||((this.input.pointer1.isDown&&this.input.pointer2.isDown)&&(player.body.touching.down)))
     {
         player.setVelocityY(-330);
     }
